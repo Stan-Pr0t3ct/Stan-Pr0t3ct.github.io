@@ -71,8 +71,8 @@ commit() {
 }
 
 push() {
-  git push origin master -q
-  echo "[INFO] Published successfully!"
+#  git push origin master -q
+  echo "[INFO] DONE!"
 }
 
 main() {
