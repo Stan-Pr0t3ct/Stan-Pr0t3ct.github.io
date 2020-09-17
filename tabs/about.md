@@ -10,20 +10,20 @@ title: About
 
 
 
-> Stan is just a CTFer
+> Stan is just a CTFer  
 > Stan knows nothing
 
-College Students ✅
+College Students&ensp;&ensp;✅
 
-Chinese 				  ✅
+Chinese&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;✅
 
-Python			 		✅
+Python&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;✅
 
-CCNA					    ✅
+CCNA&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;✅
 
-CSS							✅
+CSS&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&thinsp;&thinsp;&ensp;&ensp;&ensp;&thinsp;&ensp;&ensp;✅
 
-Linux						 ✅
+Linux&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;✅
 
 
 
