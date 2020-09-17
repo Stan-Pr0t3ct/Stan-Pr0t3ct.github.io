@@ -2,7 +2,7 @@
 title: test_your_nc
 author: Stan
 date: 2020-09-17 09:10:33 +0800
-categories: [BugKu,Pwn]
+categories: [BUUCTF,Pwn]
 tags: [Pwn]
 ---
 ```
