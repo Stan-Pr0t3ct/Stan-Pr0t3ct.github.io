@@ -1,5 +1,5 @@
 ---
-title: rip1
+title: BUUCTF[Pwn]
 author: Stan
 date: 2020-09-17 19:00:33 +0800
 categories: [CTF,BUUCTF]
@@ -215,3 +215,16 @@ r.interactive()
 
 ---
 
+## ciscn_2019_c_1
+
+日常`checksec`
+
+![image-20200919215440393](https://i.loli.net/2020/09/19/a6ebU4omWKGMhND.png)
+
+只开了NX
+
+用`IDA`打开，在encrypt函数中找到了溢出点gets
+
+![image-20200920230148555](https://i.loli.net/2020/09/20/623WaEnSmQdZxK5.png)
+
+没有后门函数，要自己泄露libc进行rop
