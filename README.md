@@ -10,11 +10,15 @@
 
 ## BUGKU
 
-| PWN          | MISC | REVERSE | WEB  |
-| ------------ | ---- | ------- | ---- |
-| PWN3🕗\|PWN4✅ |      |         |      |
+| PWN  | MISC | REVERSE | WEB  |
+| ---- | ---- | ------- | ---- |
+| 🕗    |      | ❌       |      |
 
 
 
 ## BUUCTF
+
+| PWN  | MISC | REVERSE | WEB  |
+| ---- | ---- | ------- | ---- |
+| 🕗    |      |         |      |
 
