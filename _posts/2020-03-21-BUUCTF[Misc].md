@@ -15,3 +15,14 @@ flag写在上面
 
 ---
 
+## 金三胖
+
+用stegosolver的frame browser，可以看出
+
+21：flag{
+
+51:he11o
+
+79:hongke}
+
+flag{he11ohongke}
