@@ -401,3 +401,37 @@ base64解密
 
 ---
 
+## [BJDCTF 2nd]A_Beautiful_Picture
+
+下载是一张png
+
+![image-20201011163404832](https://i.loli.net/2020/10/11/F15aGPIOyecVKgo.png)
+
+尝试改一下高度
+
+![image-20201011163558038](https://i.loli.net/2020/10/11/g1FmZ5HfuVPhOqW.png)
+
+![image-20201011163630877](https://i.loli.net/2020/10/11/i3c1vwPkZazgYtA.png)
+
+发现flag，太常规了
+
+---
+
+## 神秘龙卷风
+
+根据提示先用`ARCHPR`爆破一下密码
+
+![image-20201011163854283](https://i.loli.net/2020/10/11/LDeZrzsmbiO7Xdk.png)
+
+打开发现是**brainfuck**
+
+![image-20201011164116552](https://i.loli.net/2020/10/11/uFMoXU5JI97sPD6.png)
+
+在线解码一下
+
+![image-20201011164041577](C:\Users\cf260\AppData\Roaming\Typora\typora-user-images\image-20201011164041577.png)
+
+得到flag
+
+---
+
