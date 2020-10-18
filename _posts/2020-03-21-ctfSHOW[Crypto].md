@@ -10,6 +10,7 @@ tags: [Crypto]
 > }wohs.ftc{galf
 
 字符串反转就行了
+
 ![202010120823.PNG](https://i.loli.net/2020/10/12/FBMPYtLADd1nKqs.png)
 得到flag，太常规了
 ---
