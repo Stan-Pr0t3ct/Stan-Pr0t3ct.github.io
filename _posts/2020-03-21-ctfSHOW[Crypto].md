@@ -28,3 +28,6 @@ tags: [Crypto]
 ![image-20201019224709221](https://i.loli.net/2020/10/19/C2Ql3MUAPO7u84N.png)
 
 发现flag，太常规了
+
+## crypto3
+
