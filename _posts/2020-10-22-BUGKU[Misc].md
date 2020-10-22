@@ -181,3 +181,65 @@ skip=跳过blocks
 
 ---
 
+## 猜
+
+下载图片
+注意题目描述
+
+> flag格式key{某人名字全拼}
+
+扔去识图
+![NZT4Ej.png](https://s1.ax1x.com/2020/06/18/NZT4Ej.png)
+发现了原图
+
+> flag{liuyifei}
+
+---
+
+## 宽带信息泄露
+
+没有做过的类型
+看起来像是制式文件，先搜索一下
+由搜索结果可知是路由器配置文件
+根据提示去下载`routerpassview`
+再看题目提示，得知要提交用户名
+`ctrl+F`搜索username
+
+> < Username val=053700357621 />
+
+> flag{053700357621}
+
+---
+
+## 隐写2
+
+下载图片
+
+惯例先用`binwalk`跑一遍
+
+发现有zip，用dd分割
+
+````
+ dd if=Welcome_.jpg  of=1.zip skip=52516 bs=1
+````
+
+解压得到flag.rar和提示
+
+提示说密码是三位数，直接`ARCHPR`
+
+爆破可得密码为871
+
+解压可得一张jpg
+
+用`winhex`打开
+
+最下面发现
+
+> f1@g{eTB1IEFyZSBhIGhAY2tlciE=}
+
+b64加密，解密可得flag
+
+> flag{y0u Are a h@cker!}
+
+---
+
