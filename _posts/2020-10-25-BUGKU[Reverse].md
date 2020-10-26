@@ -47,3 +47,37 @@ bugku{inde_9882ihsd8-0}
 
 ---
 
+## Easy_Re
+
+例行**PEID**查壳，无壳
+
+导入**ollydbg**，查找ascii字符
+
+> flag get√\n
+>
+> flag不太对呦，再试试呗，加油呦\n
+
+发现可能有判断
+
+双击进去，查看汇编
+
+> 00F2108F   . /75 07         jnz Xre1.00F21098
+> 00F21091   . |68 903EF300   push re1.00F33E90                        ;  flag get√\n
+> 00F21096   . |EB 05         jmp Xre1.00F2109D
+> 00F21098   > \68 9C3EF300   push re1.00F33E9C                        ;  flag不太对呦，再试试呗，加油呦\n
+
+注意前面的**jnz**，这是判断，根据汇编大致可以看出，判断失败后跳转，否则继续运行输出flag get
+
+按`F2`在jnz设置断点，然后`F9`运行，随便输入后返回ollydbg，注意右侧寄存器
+
+> EAX 00000001
+> ECX 006FF7B4 ASCII "DUTCTF{We1c0met0DUTCTF}"
+> EDX 00779744
+> EBX 00000000
+> ESP 006FF7B4 ASCII "DUTCTF{We1c0met0DUTCTF}"
+> EBP 006FF7F8
+> ESI 00F214A5 re1.
+
+得到flag
+
+---
