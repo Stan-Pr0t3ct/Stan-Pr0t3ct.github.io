@@ -81,3 +81,33 @@ bugku{inde_9882ihsd8-0}
 得到flag
 
 ---
+
+## 游戏过关
+
+例行**PEID**查壳，无壳
+
+导入**ollydbg**，查找ascii字符
+
+> done!!! the flag is
+
+双击follow
+
+注意到上面
+
+> 0092E940  /> \55            push ebp
+
+这是函数入口
+
+右键转到`jmp`，这是汇编的跳转，继续转到
+
+> 0092F66A  |. /75 05         |jnz XConsoleA.0092F671
+> 0092F66C  |. |E8 4384FFFF   |call ConsoleA.00927AB4
+> 0092F671    ^\E9 85FEFFFF   jmp ConsoleA.0092F4FB
+
+这次发现了`call`，`jnz`是判断，如果输入错误就转到下一个`jmp`，输入正确才会call这个函数以输出flag
+
+双击原来的jmp，改汇编到和call那行一样，这样无论判断正确还是错误都会call函数输出flag
+
+之后`F9`运行
+
+随便输入后回车，flag就出来了
