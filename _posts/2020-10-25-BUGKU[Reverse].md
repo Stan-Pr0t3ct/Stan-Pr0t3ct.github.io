@@ -111,3 +111,320 @@ bugku{inde_9882ihsd8-0}
 之后`F9`运行
 
 随便输入后回车，flag就出来了
+
+---
+
+## Timer
+
+先拉进安卓模拟器，发现是倒计时200000秒，应该是倒计时变零就会出现flag，但是200000太大了，得等好几个小时，故逆向
+
+首先`PKID`查壳，发现无壳
+
+然后拉进JEB2，查看入口**MainActivity**的反编译
+
+> 名称：Timer
+> 包名：net.bluelotus.tomorrow.easyandroid
+> 入口：net.bluelotus.tomorrow.easyandroid.MainActivity
+
+````java
+package net.bluelotus.tomorrow.easyandroid;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    int beg;
+    int k;
+    int now;
+    long t;
+
+    static {
+        System.loadLibrary("lhm");
+    }
+
+    public MainActivity() {
+        super();
+        this.beg = (((int)(System.currentTimeMillis() / 1000))) + 200000;
+        this.k = 0;
+        this.t = 0;
+    }
+
+    public static boolean is2(int arg4) {
+        boolean v1 = true;
+        if(arg4 > 3) {
+            if(arg4 % 2 != 0 && arg4 % 3 != 0) {
+                int v0 = 5;
+                while(true) {
+                    if(v0 * v0 <= arg4) {
+                        if(arg4 % v0 != 0 && arg4 % (v0 + 2) != 0) {
+                            v0 += 6;
+                            continue;
+                        }
+
+                        return false;
+                    }
+                    else {
+                        return v1;
+                    }
+                }
+
+                return false;
+            }
+
+            v1 = false;
+        }
+        else if(arg4 <= 1) {
+            v1 = false;
+        }
+
+        return v1;
+    }
+
+    protected void onCreate(Bundle arg7) {
+        super.onCreate(arg7);
+        this.setContentView(2130968600);
+        View v2 = this.findViewById(2131492944);
+        View v3 = this.findViewById(2131492945);
+        Handler v0 = new Handler();
+        v0.postDelayed(new Runnable(((TextView)v3), ((TextView)v2), v0) {
+            public void run() {
+                MainActivity.this.t = System.currentTimeMillis();
+                MainActivity.this.now = ((int)(MainActivity.this.t / 1000));
+                MainActivity.this.t = 1500 - MainActivity.this.t % 1000;
+                this.val$tv2.setText("AliCTF");
+                if(MainActivity.this.beg - MainActivity.this.now <= 0) {
+                    this.val$tv1.setText("The flag is:");
+                    this.val$tv2.setText("alictf{" + MainActivity.this.stringFromJNI2(MainActivity.this.k) + "}");
+                }
+
+                if(MainActivity.is2(MainActivity.this.beg - MainActivity.this.now)) {
+                    MainActivity.this.k += 100;
+                }
+                else {
+                    --MainActivity.this.k;
+                }
+
+                this.val$tv1.setText("Time Remaining(s):" + (MainActivity.this.beg - MainActivity.this.now));
+                this.val$handler.postDelayed(((Runnable)this), MainActivity.this.t);
+            }
+        }, 0);
+    }
+
+    public boolean onCreateOptionsMenu(Menu arg3) {
+        this.getMenuInflater().inflate(2131558400, arg3);
+        return 1;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem arg3) {
+        boolean v1 = arg3.getItemId() == 2131492959 ? true : super.onOptionsItemSelected(arg3);
+        return v1;
+    }
+
+    public native String stringFromJNI2(int arg1) {
+    }
+}
+
+````
+
+`CTRL+F`搜索一下flag，发现了flag输出语句
+
+````java
+if(MainActivity.this.beg - MainActivity.this.now <= 0) {
+                    this.val$tv1.setText("The flag is:");
+                    this.val$tv2.setText("alictf{" + MainActivity.this.stringFromJNI2(MainActivity.this.k) + "}");
+                }
+````
+
+涉及到了beg和now，去前面找
+
+````java
+this.beg = (((int)(System.currentTimeMillis() / 1000))) + 200000; 
+
+MainActivity.this.now = ((int)(MainActivity.this.t / 1000));
+
+MainActivity.this.t = System.currentTimeMillis();
+````
+
+以上几句代码在程序中不是连续的，为了方便分析我放在了一起
+
+接下来具体分析一下
+
+`System.currentTimeMillis()`：用于获取当前时间戳，java读出的数据格式,时间戳会精确到毫秒，多出3个000，除上1000等于精确到秒
+
+beg=200000+时间戳
+
+now=新时间戳
+
+beg-now=200000-经过的时间
+
+了解了flag输出条件后，去看输出
+
+````java
+if(MainActivity.this.beg - MainActivity.this.now <= 0) {
+                    this.val$tv1.setText("The flag is:");
+                    this.val$tv2.setText("alictf{" + MainActivity.this.stringFromJNI2(MainActivity.this.k) + "}");
+                }
+
+                if(MainActivity.is2(MainActivity.this.beg - MainActivity.this.now)) {
+                    MainActivity.this.k += 100;
+                }
+                else {
+                    --MainActivity.this.k;
+                }
+````
+
+这里可以看出flag涉及到k，k的运算又调用了is2函数，点进去看看
+
+````java
+    public static boolean is2(int arg4) {
+        boolean v1 = true;
+        if(arg4 > 3) {
+            if(arg4 % 2 != 0 && arg4 % 3 != 0) {
+                int v0 = 5;
+                while(true) {
+                    if(v0 * v0 <= arg4) {
+                        if(arg4 % v0 != 0 && arg4 % (v0 + 2) != 0) {
+                            v0 += 6;
+                            continue;
+                        }
+
+                        return false;
+                    }
+                    else {
+                        return v1;
+                    }
+                }
+
+                return false;
+            }
+
+            v1 = false;
+        }
+        else if(arg4 <= 1) {
+            v1 = false;
+        }
+
+        return v1;
+    }
+````
+
+尝试算出k，is2函数的逻辑不用看懂，直接复制进IDE就行了，上面对k的判断和计算要稍微改一下
+
+````java
+	 public static boolean is2(int arg4) {
+	        boolean v1 = true;
+	        if(arg4 > 3) {
+	            if(arg4 % 2 != 0 && arg4 % 3 != 0) {
+	                int v0 = 5;
+	                while(true) {
+	                    if(v0 * v0 <= arg4) {
+	                        if(arg4 % v0 != 0 && arg4 % (v0 + 2) != 0) {
+	                            v0 += 6;
+	                            continue;
+	                        }
+
+	                        return false;
+	                    }
+	                    else {
+	                        return v1;
+	                    }
+	                }
+
+	               // return false;
+	            }
+
+	            v1 = false;
+	        }
+	        else if(arg4 <= 1) {
+	            v1 = false;
+	        }
+
+	        return v1;
+	    }
+	 
+	public static void main(String[] args) {
+
+		int time=200000;
+		int k=0;
+		while(time>0) {
+			if (is2(time)) {
+				k+=100;
+			}else {
+				k--;
+			}
+			time--;
+		}
+		System.out.print(k);
+		
+	}
+
+}
+````
+
+接下来对修改的地方进行说明
+
+**int time=200000; **加上**time--;** 代替了原来的beg和now的运算
+
+**k+=100;**和**k--;**分别对应上面的**MainActivity.this.k += 100;** 和**--MainActivity.this.k;**
+
+**System.out.print(k);**就是输出k
+
+is2函数直接整个复制过去了，但是注意我注释掉了一行，不注释那行会报错，原因不明，知道的大佬评论说一下。
+
+![tQnVsO.png](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMS5heDF4LmNvbS8yMDIwLzA1LzMwL3RRblZzTy5wbmc?x-oss-process=image/format,png)
+
+跑出k的结果=1616384，16进制为‭0x18AA00
+
+之后`APKtool`反编译一下，查看MainActivity.smali
+
+搜索k，在54行开始看到以下内容
+
+````smali
+    .line 18
+    const/4 v0, 0x0
+
+    iput v0, p0, Lnet/bluelotus/tomorrow/easyandroid/MainActivity;->k:I
+````
+
+简单的讲一下smali的语法
+
+**const/4**将4位常量存入寄存器
+
+**iput**将寄存器的值赋给int型字段
+
+这几行的意思就是定义k初值为0，那么直接修改为出现flag时的k值1616384，看看会怎么样(注意删去/4，不然数据类型不匹配编译会报错，因为
+
+const/4是指4位常量，const就是指常量)
+
+````
+    .line 18
+    const v0, 0x18aa00
+````
+
+这样还不够，注意查看MainActivity$1.smali，第113行，也就是输出flag之前
+
+````
+    if-gtz v0, :cond_0
+````
+
+ **if-gtz v0, :cond_0** 如果v0大于0则跳转到:cond_0
+
+本来v0是赋值0的，但是我们改为了1616384，直接把这句删掉
+
+之后编译一下，做一下签名，拉进模拟器运行
+
+![tQ1Dp9.png](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMS5heDF4LmNvbS8yMDIwLzA1LzMwL3RRMURwOS5wbmc?x-oss-process=image/format,png)
+
+alictf{Y0vAr3TimerMa3te7}
+
+bugku记得改格式
+
+flag{Y0vAr3TimerMa3te7}
+
+---
+
