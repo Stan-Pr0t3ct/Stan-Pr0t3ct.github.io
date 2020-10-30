@@ -428,3 +428,61 @@ flag{Y0vAr3TimerMa3te7}
 
 ---
 
+## 入门逆向
+
+下载附件然后拉进IDA
+
+> Hi~ this is a babyre
+
+按`x`发现交叉引用
+
+按`TAB`转换成汇编
+
+> .text:0040147A                 mov     byte ptr [esp+2Fh], 66h
+> .text:0040147F                 mov     byte ptr [esp+2Eh], 6Ch
+> .text:00401484                 mov     byte ptr [esp+2Dh], 61h
+> .text:00401489                 mov     byte ptr [esp+2Ch], 67h
+> .text:0040148E                 mov     byte ptr [esp+2Bh], 7Bh
+> .text:00401493                 mov     byte ptr [esp+2Ah], 52h
+> .text:00401498                 mov     byte ptr [esp+29h], 65h
+> .text:0040149D                 mov     byte ptr [esp+28h], 5Fh
+> .text:004014A2                 mov     byte ptr [esp+27h], 31h
+> .text:004014A7                 mov     byte ptr [esp+26h], 73h
+> .text:004014AC                 mov     byte ptr [esp+25h], 5Fh
+> .text:004014B1                 mov     byte ptr [esp+24h], 53h
+> .text:004014B6                 mov     byte ptr [esp+23h], 30h
+> .text:004014BB                 mov     byte ptr [esp+22h], 5Fh
+> .text:004014C0                 mov     byte ptr [esp+21h], 43h
+> .text:004014C5                 mov     byte ptr [esp+20h], 30h
+> .text:004014CA                 mov     byte ptr [esp+1Fh], 4Fh
+> .text:004014CF                 mov     byte ptr [esp+1Eh], 4Ch
+> .text:004014D4                 mov     byte ptr [esp+1Dh], 7Dh
+
+发现多行16进制，按`R`转换成字符串
+
+> .text:0040147A                 mov     byte ptr [esp+2Fh], 'f'
+> .text:0040147F                 mov     byte ptr [esp+2Eh], 'l'
+> .text:00401484                 mov     byte ptr [esp+2Dh], 'a'
+> .text:00401489                 mov     byte ptr [esp+2Ch], 'g'
+> .text:0040148E                 mov     byte ptr [esp+2Bh], '{'
+> .text:00401493                 mov     byte ptr [esp+2Ah], 'R'
+> .text:00401498                 mov     byte ptr [esp+29h], 'e'
+> .text:0040149D                 mov     byte ptr [esp+28h], '\_'
+> .text:004014A2                 mov     byte ptr [esp+27h], '1'
+> .text:004014A7                 mov     byte ptr [esp+26h], 's'
+> .text:004014AC                 mov     byte ptr [esp+25h], '\_'
+> .text:004014B1                 mov     byte ptr [esp+24h], 'S'
+> .text:004014B6                 mov     byte ptr [esp+23h], '0'
+> .text:004014BB                 mov     byte ptr [esp+22h], '\_'
+> .text:004014C0                 mov     byte ptr [esp+21h], 'C'
+> .text:004014C5                 mov     byte ptr [esp+20h], '0'
+> .text:004014CA                 mov     byte ptr [esp+1Fh], 'O'
+> .text:004014CF                 mov     byte ptr [esp+1Eh], 'L'
+> .text:004014D4                 mov     byte ptr [esp+1Dh], '}'
+
+得到flag
+
+---
+
+
+
